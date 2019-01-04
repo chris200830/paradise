@@ -69,11 +69,6 @@
     <Compile Include="Interfaces\ICharacterRepository.cs" />
     <Compile Include="Interfaces\IItemRepository.cs" />
     <Compile Include="Interfaces\IRoomRepository.cs" />
-    <Compile Include="Migrations\201901041204315_Initial.cs" />
-    <Compile Include="Migrations\201901041204315_Initial.Designer.cs">
-      <DependentUpon>201901041204315_Initial.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\CharacterRepository.cs" />
     <Compile Include="Repositories\ItemRepository.cs" />
@@ -88,11 +83,6 @@
       <Project>{110A5B8C-9D9D-46D9-8A52-EAEB507706C5}</Project>
       <Name>DTO</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Migrations\201901041204315_Initial.resx">
-      <DependentUpon>201901041204315_Initial.cs</DependentUpon>
-    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

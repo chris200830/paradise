@@ -1,0 +1,11 @@
+﻿################################################################################
+# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
+################################################################################
+
+/Paradise/DAL/obj
+/.vs
+/Paradise/.vs/Paradise/v15/Server/sqlite3
+/Paradise/Designer/obj
+/Paradise/DTO/obj
+/Paradise/Service/obj
+/Paradise/Paradise.sln.DotSettings.user
