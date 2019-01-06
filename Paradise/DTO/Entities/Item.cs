@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace DTO.Entities
+﻿namespace DTO.Entities
 {
-    public class Item
+    public class Item : InteractableObject
     {
         public int ItemId { get; set; }
 
@@ -14,16 +8,6 @@ namespace DTO.Entities
 
         public int ItemRoomId { get; set; }
         public Room ItemRoom { get; set; }
-
-        public Item()
-        {
-
-        }
-
-        public Item(string name)
-        {
-            Name = name;
-        }
 
         public override string ToString()
         {

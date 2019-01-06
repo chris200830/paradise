@@ -20,6 +20,7 @@ namespace DAL.Database
                 .HasForeignKey(i => i.ItemRoomId);
             modelBuilder.Entity<Character>().HasRequired(i => i.CharacterRoom).WithMany(r => r.RoomCharacters)
                 .HasForeignKey(i => i.CharacterRoomId);
+
         }
 
         public DbSet<Room> Rooms { get; set; }
