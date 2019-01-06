@@ -42,6 +42,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Entities\Character.cs" />
+    <Compile Include="Entities\Dialogue.cs" />
     <Compile Include="Entities\Item.cs" />
     <Compile Include="Entities\Room.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

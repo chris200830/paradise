@@ -9,3 +9,9 @@
 /Paradise/DTO/obj
 /Paradise/Service/obj
 /Paradise/Paradise.sln.DotSettings.user
+/Paradise/DAL/Migrations
+/Paradise/DAL/bin/Debug
+/Paradise/Designer/bin/Debug
+/Paradise/DTO/bin/Debug
+/Paradise/Service/bin/Debug
+/Paradise/.vs/Paradise/v15
