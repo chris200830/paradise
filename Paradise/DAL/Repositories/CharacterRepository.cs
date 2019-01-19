@@ -20,12 +20,12 @@ namespace DAL.Repositories
 
         public void DeleteCharacter(int characterId)
         {
-            var character = _context.Items.Find(characterId);
+            var character = _context.Characters.Find(characterId);
 
             if (character == null)
                 return;
 
-            _context.Items.Remove(character);
+            _context.Characters.Remove(character);
         }
 
         public IEnumerable<Character> FindAllCharacters()

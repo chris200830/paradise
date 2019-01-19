@@ -42,10 +42,20 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Implementations\CharacterService.cs" />
+    <Compile Include="Implementations\DialogueOptionService.cs" />
+    <Compile Include="Implementations\DialogueService.cs" />
+    <Compile Include="Implementations\InteractableObjectService.cs" />
+    <Compile Include="Implementations\InteractionService.cs" />
     <Compile Include="Implementations\ItemService.cs" />
+    <Compile Include="Implementations\MainCharacterService.cs" />
     <Compile Include="Implementations\RoomService.cs" />
     <Compile Include="Interfaces\ICharacterService.cs" />
+    <Compile Include="Interfaces\IDialogueOptionService.cs" />
+    <Compile Include="Interfaces\IDialogueService.cs" />
+    <Compile Include="Interfaces\IInteractableObjectService.cs" />
+    <Compile Include="Interfaces\IInteractionService.cs" />
     <Compile Include="Interfaces\IItemService.cs" />
+    <Compile Include="Interfaces\IMainCharacterService.cs" />
     <Compile Include="Interfaces\IRoomService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

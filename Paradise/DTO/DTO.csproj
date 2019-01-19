@@ -44,13 +44,14 @@
     <Compile Include="Entities\Character.cs" />
     <Compile Include="Entities\Dialogue.cs" />
     <Compile Include="Entities\DialogueOption.cs" />
-    <Compile Include="Entities\DialogueOptionType.cs" />
+    <Compile Include="Entities\Enums\DialogueOptionType.cs" />
+    <Compile Include="Entities\Enums\InteractionType.cs" />
+    <Compile Include="Entities\Enums\Location.cs" />
     <Compile Include="Entities\InteractableObject.cs" />
     <Compile Include="Entities\Interaction.cs" />
     <Compile Include="Entities\Item.cs" />
     <Compile Include="Entities\MainCharacter.cs" />
     <Compile Include="Entities\Room.cs" />
-    <Compile Include="Entities\Scene.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup />

@@ -20,16 +20,10 @@ namespace Designer.ViewModels
 
         #region Properties
 
-        public ICollection<Item> RoomItemsCollectionList
+        public ICollection<InteractableObject> RoomItemsCollectionList
         {
-            get => _room.RoomItems;
-            set => _room.RoomItems = value;
-        }
-
-        public ICollection<Character> RoomCharactersCollectionList
-        {
-            get => _room.RoomCharacters;
-            set => _room.RoomCharacters = value;
+            get => _room.RoomInteractableObjects;
+            set => _room.RoomInteractableObjects = value;
         }
 
         public ICollection<Room> RoomCollectionList
@@ -86,7 +80,7 @@ namespace Designer.ViewModels
 
         public RoomWindowViewModel()
         {
-            _room = new Room() {RoomItems = new List<Item>(), RoomCharacters = new List<Character>()};
+            _room = new Room() {RoomInteractableObjects = new List<InteractableObject>()};
 
             _roomWindowCommand = new RoomWindowCommand(this);
             var roomService = new RoomService();

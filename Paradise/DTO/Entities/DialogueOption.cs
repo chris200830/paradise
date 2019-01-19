@@ -1,4 +1,6 @@
-﻿namespace DTO.Entities
+﻿using DTO.Entities.Enums;
+
+namespace DTO.Entities
 {
     public class DialogueOption
     {
@@ -8,6 +10,9 @@
 
         public int DialogueId { get; set; }
         public Dialogue Dialogue { get; set; }
+
+        public Dialogue NextDialogue { get; set; }
+
         public DialogueOptionType DialogueOptionType { get; set; }
     }
 }

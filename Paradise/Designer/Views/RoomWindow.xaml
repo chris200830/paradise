@@ -4,10 +4,17 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:viewModels="clr-namespace:Designer.ViewModels"
+        xmlns:enums="clr-namespace:DTO.Entities.Enums;assembly=DTO"
+        xmlns:System="clr-namespace:System;assembly=mscorlib"
         mc:Ignorable="d"
         Title="RoomWindow" Height="450" Width="800">
     <Window.Resources>
         <viewModels:RoomWindowViewModel x:Key="RoomWindowViewModel"/>
+        <ObjectDataProvider x:Key="Location" MethodName="GetValues" ObjectType="{x:Type System:Enum}">
+            <ObjectDataProvider.MethodParameters>
+                <x:Type TypeName="enums:Location"/>
+                </ObjectDataProvider.MethodParameters>
+        </ObjectDataProvider>
     </Window.Resources>
     <Grid Background="White">
         <Grid.RowDefinitions>
@@ -45,9 +52,11 @@
                 </Grid.ColumnDefinitions>
                 <StackPanel Grid.Column="0">
                     <Label Content="Name"></Label>
+                    <Label Content="Location"></Label>
                 </StackPanel>
                 <StackPanel Grid.Column="1">
                     <TextBox Text="{Binding Source={StaticResource RoomWindowViewModel}, Path=SelectedRoom.Name}"></TextBox>
+                    <ComboBox ItemsSource="{Binding Source={StaticResource Location}}"></ComboBox>
                 </StackPanel>
             </Grid>
 

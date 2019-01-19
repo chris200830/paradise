@@ -64,8 +64,8 @@ namespace Designer.ViewModels
             character = new Character
             {
                 Name = "Character #" + (characterService.GetCharacters().Count() + 1),
-                CharacterRoom = roomService.GetRooms().ElementAt(0),
-                CharacterRoomId = roomService.GetRooms().ElementAt(0).RoomId
+                InteractableObjectRoom = roomService.GetRooms().ElementAt(0),
+                InteractableObjectRoomId = roomService.GetRooms().ElementAt(0).RoomId
             };
             characterService.AddCharacter(character);
             CharacterCollectionList = characterService.GetCharacters().ToList();

@@ -72,8 +72,8 @@ namespace Designer.ViewModels
             _item = new Item
             {
                 Name = "Item #" + (itemService.GetItems().Count() + 1),
-                ItemRoom = roomService.GetRooms().ElementAt(0),
-                ItemRoomId = roomService.GetRooms().ElementAt(0).RoomId
+                InteractableObjectRoom = roomService.GetRooms().ElementAt(0),
+                InteractableObjectRoomId = roomService.GetRooms().ElementAt(0).RoomId
             };
             itemService.AddItem(_item);
             ItemCollectionList = itemService.GetItems().ToList();

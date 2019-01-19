@@ -1,4 +1,4 @@
-﻿namespace DTO.Entities
+﻿namespace DTO.Entities.Enums
 {
     public enum DialogueOptionType
     {
