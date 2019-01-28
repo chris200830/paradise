@@ -85,14 +85,19 @@
     </Compile>
     <Compile Include="ViewModels\CharacterWindowViewModel.cs" />
     <Compile Include="ViewModels\Commands\CharacterWindowCommand.cs" />
+    <Compile Include="ViewModels\Commands\DialogueWindowCommand.cs" />
     <Compile Include="ViewModels\Commands\ItemWindowCommand.cs" />
     <Compile Include="ViewModels\Commands\MainWindowCommand.cs" />
     <Compile Include="ViewModels\Commands\RoomWindowCommand.cs" />
+    <Compile Include="ViewModels\DialogueWindowViewModel.cs" />
     <Compile Include="ViewModels\ItemWindowViewModel.cs" />
     <Compile Include="ViewModels\MainWindowViewModel.cs" />
     <Compile Include="ViewModels\RoomWindowViewModel.cs" />
     <Compile Include="Views\CharacterWindow.xaml.cs">
       <DependentUpon>CharacterWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\DialogueWindow.xaml.cs">
+      <DependentUpon>DialogueWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\ItemWindow.xaml.cs">
       <DependentUpon>ItemWindow.xaml</DependentUpon>
@@ -135,6 +140,10 @@
     <Page Include="Views\CharacterWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\DialogueWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\ItemWindow.xaml">
       <Generator>MSBuild:Compile</Generator>

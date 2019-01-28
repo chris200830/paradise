@@ -10,5 +10,6 @@ namespace Service.Interfaces
         void RemoveDialogueOption(DialogueOption dialogueOption);
         void Dispose();
         IEnumerable<DialogueOption> GetDialogueOptions();
+        IEnumerable<DialogueOption> GetDialogueOptionsByDialogueId(int dialogueId);
     }
 }

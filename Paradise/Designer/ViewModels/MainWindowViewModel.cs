@@ -31,5 +31,11 @@ namespace Designer.ViewModels
             var characterWindow = new CharacterWindow();
             characterWindow.Show();
         }
+
+        public void CreateDialogueWindow()
+        {
+            var dialogueWindow = new DialogueWindow();
+            dialogueWindow.Show();
+        }
     }
 }

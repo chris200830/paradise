@@ -45,5 +45,10 @@ namespace Service.Implementations
         {
             return dialogueOptionRepository.FindAllDialogueOptions().ToList();
         }
+
+        public IEnumerable<DialogueOption> GetDialogueOptionsByDialogueId(int dialogueId)
+        {
+            return dialogueOptionRepository.FindAllDialogueOptionsByDialogueId(dialogueId);
+        }
     }
 }

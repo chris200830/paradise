@@ -9,7 +9,7 @@ namespace DTO.Entities
         public string DialogueOptionText { get; set; }
 
         public int DialogueId { get; set; }
-        public Dialogue Dialogue { get; set; }
+        public virtual Dialogue Dialogue { get; set; }
 
         public Dialogue NextDialogue { get; set; }
 

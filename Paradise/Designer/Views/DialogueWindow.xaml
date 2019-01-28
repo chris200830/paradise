@@ -1,0 +1,97 @@
+﻿<Window x:Class="Designer.Views.DialogueWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Designer.Views"
+        xmlns:viewModels="clr-namespace:Designer.ViewModels"
+        mc:Ignorable="d"
+        Title="DialogueView" Height="450" Width="800">
+    <Window.Resources>
+        <viewModels:DialogueWindowViewModel x:Key="DialogueWindowViewModel"/>
+    </Window.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="11*"></RowDefinition>
+            <RowDefinition Height="214*"></RowDefinition>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="229*"></ColumnDefinition>
+            <ColumnDefinition Width="571*"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Button Content="MainMenu"></Button>
+        <StackPanel Grid.Column="0" Grid.Row="1">
+            <TabControl VerticalContentAlignment="Bottom">
+                <TabItem Header="Dialogues">
+                    <ListView ItemsSource="{Binding Source={StaticResource DialogueWindowViewModel}, Path=DialogueCollectionList}" SelectedItem="{Binding Source={StaticResource DialogueWindowViewModel}, Path=SelectedDialogue}"></ListView>
+                </TabItem>
+            </TabControl>
+            <Button Content="New Dialogue" Command="{Binding Source={StaticResource DialogueWindowViewModel}, Path=DialogueWindowButtonClick}" CommandParameter="Create"/>
+        </StackPanel>
+        <Grid Grid.Column="1" Grid.Row="1" Background="DarkGray">
+            <Grid.RowDefinitions>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Grid Grid.Column="0" Grid.Row="0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <StackPanel Grid.Column="0">
+                    <Label Content="DialogueText"></Label>
+                    <Button Content="Create Option" Command="{Binding Source={StaticResource DialogueWindowViewModel}, Path=DialogueWindowButtonClick}" CommandParameter="CreateDialogueOption"></Button>
+                    <Button Content="Save Option" Command="{Binding Source={StaticResource DialogueWindowViewModel}, Path=DialogueWindowButtonClick}" CommandParameter="SaveDialogueOption"></Button>
+                </StackPanel>
+                <StackPanel Grid.Column="1">
+                    <TextBox Height="51" Margin="0,0,0.333,0" ></TextBox>
+                </StackPanel>
+            </Grid>
+            
+            <Grid Grid.Row="0" Grid.Column="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <Label Content="Dialogue Options"></Label>
+                <ListView Grid.Column="1" Grid.Row="0" ItemsSource="{Binding Source={StaticResource DialogueWindowViewModel}, Path=DialogueOptions}" SelectedItem="{Binding Source={StaticResource DialogueWindowViewModel}, Path=SelectedDialogueOption}"/>
+
+            </Grid>
+
+            <Grid Column="0" Grid.Row="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <StackPanel Grid.Column="0" Grid.Row="0">
+                    <Label Content="Belongs to Character:"></Label>
+                    <Label Content="Triggered by Option:"></Label>
+
+                </StackPanel>
+                <StackPanel Grid.Column="1" Grid.Row="0">
+                    <ComboBox ></ComboBox>
+                    <ComboBox></ComboBox>
+
+                </StackPanel>
+            </Grid>
+
+            <Grid Column="1" Grid.Row="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="107*"></RowDefinition>
+                    <RowDefinition Height="25*"></RowDefinition>
+                </Grid.RowDefinitions>
+            </Grid>
+            <TextBox Grid.Column="0" Grid.Row="2" Text="{Binding Source={StaticResource DialogueWindowViewModel}, Path=SelectedDialogue.DialogueText}"/>
+            <Button  Grid.Column="1"  Grid.Row="2" Content="Save Dialogue" Command="{Binding Source={StaticResource DialogueWindowViewModel}, Path=DialogueWindowButtonClick}" CommandParameter="Save"></Button>
+        </Grid>
+    </Grid>
+</Window>

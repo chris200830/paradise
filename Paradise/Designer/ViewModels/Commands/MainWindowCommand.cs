@@ -33,6 +33,9 @@ namespace Designer.ViewModels.Commands
                 case "Characters":
                     _mainWindowViewModel.CreateCharacterWindow();
                     break;
+                case "Dialogues":
+                    _mainWindowViewModel.CreateDialogueWindow();
+                    break;
                 default:
                     break;
             }

@@ -2,6 +2,7 @@
 {
     public enum InteractionType
     {
-        Examine
+        Examine,
+        Talk
     }
 }

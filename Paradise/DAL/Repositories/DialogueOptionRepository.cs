@@ -70,5 +70,10 @@ namespace DAL.Repositories
             Dispose(true);
             GC.SuppressFinalize(this);
         }
+
+        public IEnumerable<DialogueOption> FindAllDialogueOptionsByDialogueId(int dialogueId)
+        {
+            return _context.DialogueOptions.Where(x => x.Dialogue.DialogueId == dialogueId);
+        }
     }
 }

@@ -28,6 +28,7 @@
             <Button Content="Rooms" Command="{Binding Source={StaticResource MainWindowViewModel}, Path=MainWindowButtonClick}" CommandParameter="Rooms"></Button>
             <Button Content="Items" Command="{Binding Source={StaticResource MainWindowViewModel}, Path=MainWindowButtonClick}" CommandParameter="Items"></Button>
             <Button Content="Characters" Command="{Binding Source={StaticResource MainWindowViewModel}, Path=MainWindowButtonClick}" CommandParameter="Characters"></Button>
+            <Button Content="Dialogues" Command="{Binding Source={StaticResource MainWindowViewModel}, Path=MainWindowButtonClick}" CommandParameter="Dialogues"></Button>
         </StackPanel>
     </Grid>
 </Window>
