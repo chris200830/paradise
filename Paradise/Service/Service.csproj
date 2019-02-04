@@ -31,6 +31,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -41,22 +42,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Implementations\CharacterService.cs" />
-    <Compile Include="Implementations\DialogueOptionService.cs" />
-    <Compile Include="Implementations\DialogueService.cs" />
-    <Compile Include="Implementations\InteractableObjectService.cs" />
-    <Compile Include="Implementations\InteractionService.cs" />
-    <Compile Include="Implementations\ItemService.cs" />
-    <Compile Include="Implementations\MainCharacterService.cs" />
-    <Compile Include="Implementations\RoomService.cs" />
-    <Compile Include="Interfaces\ICharacterService.cs" />
-    <Compile Include="Interfaces\IDialogueOptionService.cs" />
-    <Compile Include="Interfaces\IDialogueService.cs" />
-    <Compile Include="Interfaces\IInteractableObjectService.cs" />
-    <Compile Include="Interfaces\IInteractionService.cs" />
-    <Compile Include="Interfaces\IItemService.cs" />
-    <Compile Include="Interfaces\IMainCharacterService.cs" />
-    <Compile Include="Interfaces\IRoomService.cs" />
+    <Compile Include="Implementations\RepositoryService.cs" />
+    <Compile Include="Interfaces\IRepositoryService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

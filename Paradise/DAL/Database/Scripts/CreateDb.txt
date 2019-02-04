@@ -1,0 +1,64 @@
+﻿DROP TABLE IF EXISTS "rooms";
+DROP TABLE IF EXISTS "interactions";
+DROP TABLE IF EXISTS "interactive_objects";
+DROP TABLE IF EXISTS "characters";
+DROP TABLE IF EXISTS "main_characters";
+DROP TABLE IF EXISTS "consumables";
+DROP TABLE IF EXISTS "dialogues";
+DROP TABLE IF EXISTS "dialogue_options";
+
+
+CREATE TABLE "rooms" ("id" INTEGER PRIMARY KEY  AUTOINCREMENT  NOT NULL, 
+"room_name" STRING,
+"room_description" STRING,
+"location" INTEGER,
+"room_up_id" INTEGER,
+"room_right_id" INTEGER, 
+"room_down_id" INTEGER, 
+"room_left_id" INTEGER);
+
+CREATE TABLE "interactions" ("id" INTEGER PRIMARY KEY  AUTOINCREMENT  NOT NULL, 
+"interaction_text" STRING,
+"interactive_object_id" INTEGER);
+
+CREATE TABLE "interactive_objects" ("id" INTEGER PRIMARY KEY  AUTOINCREMENT  NOT NULL, 
+"name" STRING,
+"description" STRING,
+"interactive_object_room_id" INTEGER);
+
+CREATE TABLE "characters" ("id" INTEGER PRIMARY KEY  AUTOINCREMENT  NOT NULL, 
+"Discriminator" INTEGER);
+
+CREATE TABLE "main_characters" ("id" INTEGER PRIMARY KEY  AUTOINCREMENT  NOT NULL, 
+"Discriminator" INTEGER);
+
+CREATE TABLE "dialogues" ("id" INTEGER PRIMARY KEY  AUTOINCREMENT  NOT NULL, 
+"dialogue_text" STRING,
+"dialogue_option_type" INTEGER,
+"dialogue_reply_id" INTEGER,
+"next_dialogue_id" INTEGER,
+"dialogue_character_id" INTEGER);
+
+CREATE TABLE "consumables" ("id" INTEGER PRIMARY KEY  AUTOINCREMENT  NOT NULL, 
+"Discriminator" INTEGER);
+
+INSERT INTO rooms
+                  (room_left_id, room_down_id, room_right_id, room_up_id, location, room_description, room_name, id)
+                  VALUES
+                  (69, 69, 69, 69, 2, 'Room set only as base reference for other rooms. This room does not appear in the game.', 'None', 69);
+
+INSERT INTO interactive_objects
+                                (interactive_object_room_id, description, name, id)
+                                VALUES
+                                (0, 'This character is only for base reference.', 'FacelessMan', 69);
+INSERT INTO characters
+                       (Discriminator, id)
+                       VALUES
+                       (NULL, 69);
+INSERT INTO dialogues
+                      (dialogue_character_id, next_dialogue_id, dialogue_reply_id, dialogue_option_type, dialogue_text, id)
+                      VALUES
+                      (69, 69, 69, 0, 'This text is only for base reference', 69);
+
+
+

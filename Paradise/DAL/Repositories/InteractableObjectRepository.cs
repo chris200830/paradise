@@ -8,61 +8,63 @@ using DTO.Entities;
 
 namespace DAL.Repositories
 {
-    public class InteractableObjectRepository : IInteractableObjectRepository
+    internal class InteractiveObjectRepository : IInteractiveObjectRepository
     {
-        private readonly WpfAppContext _context;
-        private bool _disposed;
+        private bool disposed;
 
-        public InteractableObjectRepository(WpfAppContext context)
+        private readonly WpfAppContext context;
+
+        public InteractiveObjectRepository(WpfAppContext context)
         {
-            _context = context;
+            this.context = context;
         }
 
-        public IEnumerable<InteractableObject> FindAllInteractableObjects()
+        public IEnumerable<InteractiveObject> FindAllInteractiveObjects()
         {
-            return _context.InteractableObjects.ToList();
+            return context.InteractiveObjects.Include(c => c.Interactions).ToList();
         }
 
-        public InteractableObject GetInteractableObjectById(int interactableObjectId)
+        public InteractiveObject GetInteractiveObjectById(int interactiveObjectId)
         {
-            return _context.InteractableObjects.Find(interactableObjectId);
+            return context.InteractiveObjects.Include(c => c.Interactions).ToList().Find(r => r.Id == interactiveObjectId);
         }
 
-        public void InsertInteractableObject(InteractableObject interactableObject)
+        public void InsertInteractiveObject(InteractiveObject interactiveObject)
         {
-            _context.InteractableObjects.Add(interactableObject);
+            context.InteractiveObjects.Add(interactiveObject);
         }
 
-        public void DeleteInteractableObject(int interactableObjectId)
+        public void DeleteInteractiveObject(int interactiveObjectId)
         {
-            var interactableObject = _context.InteractableObjects.Find(interactableObjectId);
+            var interactiveObject = context.InteractiveObjects.Find(interactiveObjectId);
 
-            if (interactableObject == null)
+            if (interactiveObject == null)
                 return;
 
-            _context.InteractableObjects.Remove(interactableObject);
+            context.InteractiveObjects.Remove(interactiveObject);
         }
 
-        public void UpdateInteractableObject(InteractableObject interactableObject)
+        public void UpdateInteractiveObject(InteractiveObject interactiveObject)
         {
-            _context.Entry(interactableObject).State = EntityState.Modified;
+            context.InteractiveObjects.Attach(interactiveObject);
+            context.Entry(interactiveObject).State = EntityState.Modified;
         }
 
         public void Save()
         {
-            _context.SaveChanges();
+            context.SaveChanges();
         }
 
         protected virtual void Dispose(bool disposing)
         {
-            if (!_disposed)
+            if (!disposed)
             {
                 if (disposing)
                 {
-                    _context.Dispose();
+                    context.Dispose();
                 }
             }
-            _disposed = true;
+            disposed = true;
         }
 
         public void Dispose()

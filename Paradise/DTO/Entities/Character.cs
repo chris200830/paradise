@@ -1,11 +1,12 @@
 ﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace DTO.Entities
 {
-    public class Character : InteractableObject
+    [Table("characters")]
+    public class Character : InteractiveObject
     {
-        public int CharacterId { get; set; }
-
-        public ICollection<Dialogue> CharacterDialogues { get; set; }
+        [InverseProperty("DialogueCharacter")]
+        public virtual ICollection<Dialogue> CharacterDialogues { get; set; }
     }
 }

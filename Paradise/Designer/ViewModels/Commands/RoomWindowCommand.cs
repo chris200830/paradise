@@ -30,6 +30,12 @@ namespace Designer.ViewModels.Commands
                 case "Save":
                     _roomWindowViewModel.SaveRoom();
                     break;
+                case "AddObject":
+                    _roomWindowViewModel.AddObjectToRoom();
+                    break;
+                case "RemoveObjectFromList":
+                    _roomWindowViewModel.RemoveObjectFromRoom();
+                    break;
                 default:
                     break;
             }

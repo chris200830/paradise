@@ -32,6 +32,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -41,17 +42,19 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Entities\Armor.cs" />
     <Compile Include="Entities\Character.cs" />
+    <Compile Include="Entities\Consumable.cs" />
     <Compile Include="Entities\Dialogue.cs" />
-    <Compile Include="Entities\DialogueOption.cs" />
+    <Compile Include="Entities\Enums\ConsumableEffects.cs" />
     <Compile Include="Entities\Enums\DialogueOptionType.cs" />
-    <Compile Include="Entities\Enums\InteractionType.cs" />
     <Compile Include="Entities\Enums\Location.cs" />
-    <Compile Include="Entities\InteractableObject.cs" />
+    <Compile Include="Entities\InteractiveObject.cs" />
     <Compile Include="Entities\Interaction.cs" />
-    <Compile Include="Entities\Item.cs" />
     <Compile Include="Entities\MainCharacter.cs" />
     <Compile Include="Entities\Room.cs" />
+    <Compile Include="Entities\Weapon.cs" />
+    <Compile Include="Interfaces\IItem.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup />

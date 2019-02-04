@@ -5,12 +5,12 @@ namespace Designer.ViewModels.Commands
 {
     public class DialogueWindowCommand : ICommand
     {
-        private readonly DialogueWindowViewModel _dialogueWindowViewModel;
+        private readonly DialogueWindowViewModel dialogueWindowViewModel;
         public event EventHandler CanExecuteChanged;
 
         public DialogueWindowCommand(DialogueWindowViewModel dialogueWindowViewModel)
         {
-            _dialogueWindowViewModel = dialogueWindowViewModel;
+            this.dialogueWindowViewModel = dialogueWindowViewModel;
         }
 
         public bool CanExecute(object parameter)
@@ -24,16 +24,16 @@ namespace Designer.ViewModels.Commands
             switch (type)
             {
                 case "Create":
-                    _dialogueWindowViewModel.CreateDialogue();
+                    dialogueWindowViewModel.CreateDialogue();
                     break;
                 case "Save":
-                    _dialogueWindowViewModel.SaveDialogue();
+                    dialogueWindowViewModel.SaveDialogue();
                     break;
-                case "CreateDialogueOption":
-                    _dialogueWindowViewModel.CreateDialogueOption();
+                case "AddReplyToList":
+                    dialogueWindowViewModel.AddReplyToList();
                     break;
-                case "SaveDialogueOption":
-                    _dialogueWindowViewModel.SaveDialogueOption();
+                case "RemoveReplyFromList":
+                    dialogueWindowViewModel.RemoveReplyFromList();
                     break;
                 default:
                     break;

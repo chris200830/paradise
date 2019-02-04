@@ -8,61 +8,62 @@ using System.Linq;
 
 namespace DAL.Repositories
 {
-    public class RoomRepository : IRoomRepository
+    internal class RoomRepository : IRoomRepository
     {
-        private readonly WpfAppContext _context;
-        private bool _disposed;
+        private bool disposed;
+
+        private readonly WpfAppContext context;
 
         public RoomRepository(WpfAppContext context)
         {
-            _context = context;
+            this.context = context;
         }
 
         public void DeleteRoom(int roomId)
         {
-            var room = _context.Rooms.Find(roomId);
+            var room = context.Rooms.Find(roomId);
 
             if (room == null)
                 return;
 
-            _context.Rooms.Remove(room);
+            context.Rooms.Remove(room);
         }
 
         public IEnumerable<Room> FindAllRooms()
         {
-            return _context.Rooms.ToList();
+            return context.Rooms.Include(r => r.RoomInteractiveObjects).ToList();
         }
 
         public Room GetRoomById(int roomId)
         {
-            return _context.Rooms.Find(roomId);
+            return context.Rooms.Include(r => r.RoomInteractiveObjects).ToList().Find(r => r.Id == roomId);
         }
 
         public void InsertRoom(Room room)
         {
-            _context.Rooms.Add(room);
+            context.Rooms.Add(room);
         }
 
         public void Save()
         {
-            _context.SaveChanges();
+            context.SaveChanges();
         }
 
         public void UpdateRoom(Room room)
         {
-            _context.Entry(room).State = EntityState.Modified;
+            context.Entry(room).State = EntityState.Modified;
         }
 
         protected virtual void Dispose(bool disposing)
         {
-            if (!_disposed)
+            if (!disposed)
             {
                 if (disposing)
                 {
-                    _context.Dispose();
+                    context.Dispose();
                 }
             }
-            _disposed = true;
+            disposed = true;
         }
 
         public void Dispose()

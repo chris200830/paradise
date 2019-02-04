@@ -22,7 +22,7 @@ namespace Designer.ViewModels
 
         public void CreateItemWindow()
         {
-            var itemWindow = new ItemWindow();
+            var itemWindow = new InteractiveObjectWindow();
             itemWindow.Show();
         }
 

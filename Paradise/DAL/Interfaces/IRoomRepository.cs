@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using DAL.Database;
 using DTO.Entities;
 
 namespace DAL.Interfaces

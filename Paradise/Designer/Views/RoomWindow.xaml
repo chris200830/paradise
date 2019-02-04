@@ -55,8 +55,10 @@
                     <Label Content="Location"></Label>
                 </StackPanel>
                 <StackPanel Grid.Column="1">
-                    <TextBox Text="{Binding Source={StaticResource RoomWindowViewModel}, Path=SelectedRoom.Name}"></TextBox>
-                    <ComboBox ItemsSource="{Binding Source={StaticResource Location}}"></ComboBox>
+                    <TextBox Text="{Binding Source={StaticResource RoomWindowViewModel}, Path=SelectedRoom.RoomName}"></TextBox>
+                    <ComboBox ItemsSource="{Binding Source={StaticResource Location}}"
+                              SelectedItem="{Binding Source={StaticResource RoomWindowViewModel}, Path=SelectedRoom.Location}"
+                              SelectedValue="{Binding Source={StaticResource RoomWindowViewModel}, Path=RoomLocation}"></ComboBox>
                 </StackPanel>
             </Grid>
 
@@ -72,10 +74,18 @@
                     <Label Margin="2" Content="Room Down:"></Label>
                 </StackPanel>
                 <StackPanel Grid.Column="1" Margin="10,0">
-                    <ComboBox ItemsSource="{Binding Source={StaticResource RoomWindowViewModel}, Path=RoomCollectionList}"></ComboBox>
-                    <ComboBox Margin="5" ItemsSource="{Binding Source={StaticResource RoomWindowViewModel}, Path=RoomCollectionList}"></ComboBox>
-                    <ComboBox Margin="5" ItemsSource="{Binding Source={StaticResource RoomWindowViewModel}, Path=RoomCollectionList}"></ComboBox>
-                    <ComboBox Margin="5" ItemsSource="{Binding Source={StaticResource RoomWindowViewModel}, Path=RoomCollectionList}"></ComboBox>
+                    <ComboBox ItemsSource="{Binding Source={StaticResource RoomWindowViewModel}, Path=RoomCollectionList}"
+                              SelectedItem="{Binding Source={StaticResource RoomWindowViewModel}, Path=SelectedRoom.RoomLeft}"
+                              SelectedValue="{Binding Source={StaticResource RoomWindowViewModel}, Path=ViewModelRoomLeft}"></ComboBox>
+                    <ComboBox Margin="5" ItemsSource="{Binding Source={StaticResource RoomWindowViewModel}, Path=RoomCollectionList}"
+                              SelectedItem="{Binding Source={StaticResource RoomWindowViewModel}, Path=SelectedRoom.RoomUp}"
+                              SelectedValue="{Binding Source={StaticResource RoomWindowViewModel}, Path=ViewModelRoomUp}"></ComboBox>
+                    <ComboBox Margin="5" ItemsSource="{Binding Source={StaticResource RoomWindowViewModel}, Path=RoomCollectionList}"
+                              SelectedItem="{Binding Source={StaticResource RoomWindowViewModel}, Path=SelectedRoom.RoomRight}"
+                              SelectedValue="{Binding Source={StaticResource RoomWindowViewModel}, Path=ViewModelRoomRight}"></ComboBox>
+                    <ComboBox Margin="5" ItemsSource="{Binding Source={StaticResource RoomWindowViewModel}, Path=RoomCollectionList}"
+                              SelectedItem="{Binding Source={StaticResource RoomWindowViewModel}, Path=SelectedRoom.RoomDown}"
+                              SelectedValue="{Binding Source={StaticResource RoomWindowViewModel}, Path=ViewModelRoomDown}"></ComboBox>
                 </StackPanel>
             </Grid>
 
@@ -85,13 +95,12 @@
                     <ColumnDefinition></ColumnDefinition>
                 </Grid.ColumnDefinitions>
                 <StackPanel Grid.Column="0">
-                    <Label Content="Items"></Label>
-                    <Label Content="Characters"></Label>
-                    <Button Content="Add to List"></Button>
+                    <Label Content="Room Objects"/>
+                    <Button Content="Add to List" Command="{Binding Source={StaticResource RoomWindowViewModel}, Path=RoomWindowButtonClick}" CommandParameter="AddObject"/>
                 </StackPanel>
                 <StackPanel Grid.Column="1">
-                    <ComboBox ItemsSource="{Binding Source={StaticResource RoomWindowViewModel}, Path=RoomItemsCollectionList}"></ComboBox>
-                    <ComboBox ItemsSource="{Binding Source={StaticResource RoomWindowViewModel}, Path=RoomCharactersCollectionList}"></ComboBox>
+                    <ComboBox ItemsSource="{Binding Source={StaticResource RoomWindowViewModel}, Path=RoomInteractiveObjectsCollectionList}" 
+                              SelectedValue="{Binding Source={StaticResource RoomWindowViewModel}, Path=ComboBoxInteractiveObject}"/>
                 </StackPanel>
             </Grid>
 
@@ -105,6 +114,10 @@
                     <RowDefinition Height="25*"></RowDefinition>
                 </Grid.RowDefinitions>
                 <TabControl Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2">
+                    <TabItem Header="Objects">
+                        <ListView ItemsSource="{Binding Source={StaticResource RoomWindowViewModel}, Path=SelectedRoom.RoomInteractiveObjects}" 
+                                  SelectedItem="{Binding Source={StaticResource RoomWindowViewModel}, Path=SelectedInteractiveObject}"/>
+                    </TabItem>
                     <TabItem Header="Items">
                         <ListView>
 
@@ -116,9 +129,14 @@
                         </ListView>
                     </TabItem>
                 </TabControl>
-                <Button Grid.Column="0" Grid.Row="1" Content="Remove" Margin="0,0,26,0"></Button>
+                <Button Grid.Column="0" Grid.Row="1" Content="Remove Room Object" Margin="0,0,9.6,-0.2"
+                        Command="{Binding Source={StaticResource RoomWindowViewModel}, Path=RoomWindowButtonClick}" CommandParameter="RemoveObjectFromList"></Button>
             </Grid>
-            <TextBox Grid.Column="0" Grid.Row="2" />
+            <DockPanel Grid.Column="0" Grid.Row="2">
+                <Label DockPanel.Dock="Top" Content="Room Description"/>
+                <TextBox DockPanel.Dock="Bottom" TextWrapping="Wrap" VerticalScrollBarVisibility="Visible" AcceptsReturn="True"
+                         Text="{Binding Source={StaticResource RoomWindowViewModel}, Path=SelectedRoom.RoomDescription}"/>
+            </DockPanel>
             <Button  Grid.Column="1"  Grid.Row="2" Content="Save Room" Command="{Binding Source={StaticResource RoomWindowViewModel}, Path=RoomWindowButtonClick}" CommandParameter="Save"></Button>
         </Grid>
     </Grid>

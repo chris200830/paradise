@@ -8,7 +8,7 @@ using DTO.Entities;
 
 namespace DAL.Repositories
 {
-    public class MainCharacterRepository : IMainCharacterRepository
+    internal class MainCharacterRepository : IMainCharacterRepository
     {
         private readonly WpfAppContext _context;
         private bool _disposed;

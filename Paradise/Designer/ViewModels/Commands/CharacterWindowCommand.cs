@@ -5,12 +5,12 @@ namespace Designer.ViewModels.Commands
 {
     public class CharacterWindowCommand : ICommand
     {
-        private readonly CharacterWindowViewModel _characterWindowViewModel;
+        private readonly CharacterWindowViewModel characterWindowViewModel;
         public event EventHandler CanExecuteChanged;
 
         public CharacterWindowCommand(CharacterWindowViewModel characterWindowViewModel)
         {
-            _characterWindowViewModel = characterWindowViewModel;
+            this.characterWindowViewModel = characterWindowViewModel;
         }
 
         public bool CanExecute(object parameter)
@@ -24,10 +24,16 @@ namespace Designer.ViewModels.Commands
             switch (type)
             {
                 case "Create":
-                    _characterWindowViewModel.CreateCharacter();
+                    characterWindowViewModel.CreateCharacter();
                     break;
                 case "Save":
-                    _characterWindowViewModel.SaveCharacter();
+                    characterWindowViewModel.SaveCharacter();
+                    break;
+                case "AddDialogueToCharacter":
+                    characterWindowViewModel.AddDialogueToCharacter();
+                    break;
+                case "RemoveDialogueFromCharacter":
+                    characterWindowViewModel.RemoveDialogueFromCharacter();
                     break;
                 default:
                     break;

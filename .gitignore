@@ -15,3 +15,16 @@
 /Paradise/DTO/bin/Debug
 /Paradise/Service/bin/Debug
 /Paradise/.vs/Paradise/v15
+/Paradise/Player/bin/Debug
+/Paradise/Player/obj/Debug
+/Paradise/packages/Unity.Container.5.9.3
+/Paradise/packages/Unity.Abstractions.4.0.2
+/Paradise/packages/Unity.Configuration.5.9.1
+/Paradise/packages/Unity.5.9.3
+/Paradise/packages/System.ValueTuple.4.5.0
+/Paradise/packages/System.Data.SQLite.EF6.1.0.109.0
+/Paradise/packages/System.Data.SQLite.Linq.1.0.109.0
+/Paradise/packages/System.Runtime.CompilerServices.Unsafe.4.5.2
+/Paradise/packages/System.Data.SQLite.1.0.109.2
+/Paradise/packages/System.Data.SQLite.Core.1.0.109.2
+/Paradise/packages/Newtonsoft.Json.12.0.1

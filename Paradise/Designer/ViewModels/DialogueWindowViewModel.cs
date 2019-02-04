@@ -4,16 +4,20 @@ using System.Linq;
 using System.Windows.Input;
 using Designer.ViewModels.Commands;
 using DTO.Entities;
-using Service.Implementations;
+using Service.Interfaces;
+using Unity;
 
 namespace Designer.ViewModels
 {
     public class DialogueWindowViewModel : INotifyPropertyChanged
     {
+        private readonly IRepositoryService repositoryService = Initializer.UnityContainer.Resolve<IRepositoryService>();
         private Dialogue dialogue;
-        private DialogueOption dialogueOption;
+        private Dialogue selectedReply;
         private ICollection<Dialogue> dialogueList;
-        private ICollection<DialogueOption> dialogueOptionList;
+
+        private Character selectedCharacter;
+        private ICollection<Character> characterList;
 
         private readonly DialogueWindowCommand dialogueWindowCommand;
         public ICommand DialogueWindowButtonClick => dialogueWindowCommand;
@@ -21,6 +25,12 @@ namespace Designer.ViewModels
         public event PropertyChangedEventHandler PropertyChanged;
 
         #region Properties
+
+        public ICollection<Dialogue> DialogueReplyList { get; set; }
+
+        public Dialogue ComboBoxDialogue { get; set; }
+
+        public Dialogue SelectedReply { get; set; }
 
         public ICollection<Dialogue> DialogueCollectionList
         {
@@ -32,15 +42,7 @@ namespace Designer.ViewModels
             }
         }
 
-        public ICollection<DialogueOption> DialogueOptionCollectionList
-        {
-            get => dialogueOptionList;
-            set
-            {
-                dialogueOptionList = value;
-                OnPropertyChanged("DialogueOptionCollectionList");
-            }
-        }
+        public ICollection<Character> CharacterList => repositoryService.FindAllCharacters();
 
         public string DialogueText
         {
@@ -58,37 +60,28 @@ namespace Designer.ViewModels
             set
             {
                 dialogue = value;
-                DialogueOptions = dialogue.DialogueOptions;
                 OnPropertyChanged("SelectedDialogue");
             }
         }
 
-        public DialogueOption SelectedDialogueOption
+        public Character SelectedCharacter
         {
-            get => dialogueOption;
+            get => selectedCharacter;
             set
             {
-                dialogueOption = value;
-                OnPropertyChanged("SelectedDialogueOption");
+                selectedCharacter = value;
+                OnPropertyChanged("SelectedCharacter");
             }
         }
 
-        public ICollection<DialogueOption> DialogueOptions {
-            get => dialogue.DialogueOptions;
-            set
-            {
-                dialogue.DialogueOptions = value;
-                OnPropertyChanged("DialogueOptions");
-            }
-        }
-
-        public Character DialogueCharacter
+        public Dialogue NextDialogueViewModel
         {
-            get => dialogue.DialogueCharacter;
+            get => dialogue.NextDialogue;
             set
             {
-                dialogue.DialogueCharacter = value;
-                OnPropertyChanged("DialogueCharacter");
+                dialogue.NextDialogue = value;
+                dialogue.NextDialogueId = value.Id;
+                OnPropertyChanged("NextDialogueViewModel");
             }
         }
 
@@ -96,66 +89,61 @@ namespace Designer.ViewModels
 
         public DialogueWindowViewModel()
         {
+            dialogue = new Dialogue() {DialogueReplies = new List<Dialogue>()};
             dialogueWindowCommand = new DialogueWindowCommand(this);
-            dialogue = new Dialogue() { DialogueOptions = new List<DialogueOption>() };
-
-            var dialogueService = new DialogueService();
-            DialogueCollectionList = dialogueService.GetDialogues().ToList();
+            DialogueCollectionList = repositoryService.FindAllDialogues().ToList();
         }
 
         public void CreateDialogue()
         {
-            var dialogueService = new DialogueService();
-            var characterService = new CharacterService();
-            dialogue = new Dialogue
+            dialogue = new Dialogue()
             {
-               DialogueOptions = new List<DialogueOption>(),
-               DialogueCharacter = characterService.GetCharacters().FirstOrDefault()
+                NextDialogueId = 69,
+                DialogueCharacterId = 69,
+                DialogueReplyId = 69,
+                DialogueReplies = new List<Dialogue>()
             };
-            dialogueService.AddDialogue(dialogue);
-            DialogueCollectionList = dialogueService.GetDialogues().ToList();
-            dialogueService.Dispose();
+            repositoryService.AddDialogue(dialogue);
+            repositoryService.Commit();
+            DialogueCollectionList = repositoryService.FindAllDialogues().ToList();
         }
 
         public void SaveDialogue()
         {
-            var dialogueService = new DialogueService();
-            dialogueService.UpdateDialogue(dialogue);
-            DialogueCollectionList = dialogueService.GetDialogues().ToList();
-            dialogueService.Dispose();
+            repositoryService.UpdateDialogue(dialogue);
+            repositoryService.Commit();
+            DialogueCollectionList = repositoryService.FindAllDialogues().ToList();
         }
 
-        public void CreateDialogueOption()
+        public void AddReplyToList()
         {
-            var dialogueOptionService = new DialogueOptionService();
-            dialogueOption = new DialogueOption()
+            if (ComboBoxDialogue == null)
             {
-                Dialogue = SelectedDialogue
-            };
-            dialogueOptionService.AddDialogueOption(dialogueOption);
-
-            if (dialogue.DialogueOptions == null)
-            {
-                dialogue.DialogueOptions = new List<DialogueOption>();
+                return;
             }
 
-            dialogue.DialogueOptions.Add(dialogueOption);
-            var dialogueService = new DialogueService();
-            dialogueService.UpdateDialogue(dialogue);
-            var d = dialogueService.GetDialogues().ToList();
-            DialogueOptionCollectionList = dialogue.DialogueOptions;
+            if (dialogue.DialogueReplies == null)
+            {
+                dialogue.DialogueReplies = new List<Dialogue>();
+            }
 
-            dialogueOptionService.Dispose();
-            dialogueService.Dispose();
+            dialogue.DialogueReplies.Add(ComboBoxDialogue);
+            repositoryService.UpdateDialogue(dialogue);
+            repositoryService.Commit();
         }
 
-        public void SaveDialogueOption()
+        public void RemoveReplyFromList()
         {
-            var dialogueOptionService = new DialogueOptionService();
-            dialogueOptionService.UpdateDialogueOption(dialogueOption);
+            if (dialogue.DialogueReplies == null || SelectedReply == null)
+            {
+                return;
+            }
 
-            DialogueOptionCollectionList = dialogue.DialogueOptions;
-            dialogueOptionService.Dispose();
+            dialogue.DialogueReplies.Remove(SelectedReply);
+            SelectedReply.DialogueReply = repositoryService.FindDialogue(69);
+            repositoryService.UpdateDialogue(dialogue);
+            repositoryService.UpdateDialogue(SelectedReply);
+            repositoryService.Commit();
         }
 
         protected void OnPropertyChanged(string name)

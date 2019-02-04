@@ -1,15 +1,20 @@
-﻿using DTO.Entities.Enums;
+﻿using System.ComponentModel.DataAnnotations.Schema;
+using DTO.Entities.Enums;
 
 namespace DTO.Entities
 {
+    [Table("interactions")]
     public class Interaction
     {
-        public int InteractionId { get; set; }
+        [Column("id")]
+        public int Id { get; set; }
 
+        [Column("interaction_text")]
         public string InteractionText { get; set; }
-        public InteractionType InteractionType { get; set; }
 
-        public int InteractableObjectId { get; set; }
-        public InteractableObject InteractableObject { get; set; }
+        [Column("interactive_object_id")]
+        public int InteractiveObjectId { get; set; }
+        [ForeignKey("InteractiveObjectId")]
+        public virtual InteractiveObject InteractiveObject { get; set; }
     }
 }

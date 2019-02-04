@@ -8,7 +8,7 @@ using DTO.Entities;
 
 namespace DAL.Repositories
 {
-    public class DialogueRepository : IDialogueRepository
+    internal class DialogueRepository : IDialogueRepository
     {
         private readonly WpfAppContext _context;
         private bool _disposed;

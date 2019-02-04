@@ -3,19 +3,20 @@ using System.ComponentModel;
 using System.Linq;
 using System.Windows.Input;
 using DTO.Entities;
-using Service.Implementations;
 using Designer.ViewModels.Commands;
+using Service.Interfaces;
+using Unity;
 
 namespace Designer.ViewModels
 {
     public class CharacterWindowViewModel : INotifyPropertyChanged
     {
-        private Character character;
+        private readonly IRepositoryService repositoryService = Initializer.UnityContainer.Resolve<IRepositoryService>();
+        public ICommand CharacterWindowButtonClick => characterWindowCommand;
         private ICollection<Character> characterList;
 
+        private Character character;
         private readonly CharacterWindowCommand characterWindowCommand;
-        public ICommand CharacterWindowButtonClick => characterWindowCommand;
-
         public event PropertyChangedEventHandler PropertyChanged;
 
         #region Properties
@@ -29,6 +30,12 @@ namespace Designer.ViewModels
                 OnPropertyChanged("CharacterCollectionList");
             }
         }
+
+        public ICollection<Dialogue> DialogueCollectionList { get; set; }
+
+        public Dialogue ComboBoxDialogue { get; set; }
+
+        public Dialogue SelectedDialogue { get; set; }
 
         public string CharacterNameText
         {
@@ -54,30 +61,60 @@ namespace Designer.ViewModels
 
         public CharacterWindowViewModel()
         {
+            character = new Character() {CharacterDialogues = new List<Dialogue>()};
             characterWindowCommand = new CharacterWindowCommand(this);
+            CharacterCollectionList = repositoryService.FindAllCharacters().ToList();
+            DialogueCollectionList = repositoryService.FindAllDialogues();
         }
 
         public void CreateCharacter()
         {
-            var characterService = new CharacterService();
-            var roomService = new RoomService();
             character = new Character
             {
-                Name = "Character #" + (characterService.GetCharacters().Count() + 1),
-                InteractableObjectRoom = roomService.GetRooms().ElementAt(0),
-                InteractableObjectRoomId = roomService.GetRooms().ElementAt(0).RoomId
+                Id = 10,
+                Name = "Character #" + (repositoryService.FindAllCharacters().Count() + 1),
             };
-            characterService.AddCharacter(character);
-            CharacterCollectionList = characterService.GetCharacters().ToList();
-            characterService.Dispose();
+            repositoryService.AddCharacter(character);
+            repositoryService.Commit();
+            CharacterCollectionList = repositoryService.FindAllCharacters().ToList();
         }
 
         public void SaveCharacter()
         {
-            var characterService = new CharacterService();
-            characterService.UpdateCharacter(character);
-            CharacterCollectionList = characterService.GetCharacters().ToList();
-            characterService.Dispose();
+            repositoryService.UpdateCharacter(character);
+            repositoryService.Commit();
+            CharacterCollectionList = repositoryService.FindAllCharacters().ToList();
+        }
+
+        public void AddDialogueToCharacter()
+        {
+            if (ComboBoxDialogue == null)
+            {
+                return;
+            }
+
+            if (character.CharacterDialogues == null)
+            {
+                character.CharacterDialogues = new List<Dialogue>();
+            }
+
+            character.CharacterDialogues.Add(ComboBoxDialogue);
+            repositoryService.UpdateCharacter(character);
+            repositoryService.Commit();
+        }
+
+        public void RemoveDialogueFromCharacter()
+        {
+            if (character.CharacterDialogues == null)
+            {
+                return;
+            }
+
+            character.CharacterDialogues.Remove(SelectedDialogue);
+            SelectedDialogue.DialogueCharacter = repositoryService.FindCharacter(69);
+            repositoryService.UpdateCharacter(character);
+            repositoryService.UpdateDialogue(SelectedDialogue);
+            repositoryService.Commit();
         }
 
         protected void OnPropertyChanged(string name)

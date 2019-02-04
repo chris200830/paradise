@@ -8,61 +8,61 @@ using DTO.Entities;
 
 namespace DAL.Repositories
 {
-    public class CharacterRepository : ICharacterRepository
+    internal class CharacterRepository : ICharacterRepository
     {
-        private readonly WpfAppContext _context;
-        private bool _disposed;
+        private readonly WpfAppContext context;
+        private bool disposed;
 
         public CharacterRepository(WpfAppContext context)
         {
-            _context = context;
+            this.context = context;
         }
 
         public void DeleteCharacter(int characterId)
         {
-            var character = _context.Characters.Find(characterId);
+            var character = context.Characters.Find(characterId);
 
             if (character == null)
                 return;
 
-            _context.Characters.Remove(character);
+            context.Characters.Remove(character);
         }
 
         public IEnumerable<Character> FindAllCharacters()
         {
-            return _context.Characters.ToList();
+            return context.Characters.Include(c => c.CharacterDialogues).ToList();
         }
 
         public Character GetCharacterById(int characterId)
         {
-            return _context.Characters.Find(characterId);
+            return context.Characters.Include(c => c.CharacterDialogues).ToList().Find(r => r.Id == characterId);
         }
 
         public void InsertCharacter(Character character)
         {
-            _context.Characters.Add(character);
+            context.Characters.Add(character);
         }
 
         public void Save()
         {
-            _context.SaveChanges();
+            context.SaveChanges();
         }
 
         public void UpdateCharacter(Character character)
         {
-            _context.Entry(character).State = EntityState.Modified;
+            context.Entry(character).State = EntityState.Modified;
         }
 
         protected virtual void Dispose(bool disposing)
         {
-            if (!_disposed)
+            if (!disposed)
             {
                 if (disposing)
                 {
-                    _context.Dispose();
+                    context.Dispose();
                 }
             }
-            _disposed = true;
+            disposed = true;
         }
 
         public void Dispose()

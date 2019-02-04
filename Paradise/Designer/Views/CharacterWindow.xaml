@@ -45,18 +45,23 @@
                 </Grid.ColumnDefinitions>
                 <StackPanel Grid.Column="0">
                     <Label Content="Name"></Label>
+                    <Label Content="Dialogues"></Label>
+                    <Button Content="Add Dialogue" Command="{Binding Source={StaticResource CharacterWindowViewModel}, Path=CharacterWindowButtonClick}"
+                            CommandParameter="AddDialogueToCharacter"></Button>
                 </StackPanel>
                 <StackPanel Grid.Column="1">
                     <TextBox Text="{Binding Source={StaticResource CharacterWindowViewModel}, Path=SelectedCharacter.Name}"></TextBox>
+                    <ComboBox Margin="0,5,0,0" ItemsSource="{Binding Source={StaticResource CharacterWindowViewModel}, Path=DialogueCollectionList}"
+                              SelectedValue="{Binding Source={StaticResource CharacterWindowViewModel}, Path=ComboBoxDialogue}"/>
+                    <Button Margin="0,7,0,0" Content="Remove Dialogue" Command="{Binding Source={StaticResource CharacterWindowViewModel}, Path=CharacterWindowButtonClick}"
+                            CommandParameter="RemoveDialogueFromCharacter"/>
                 </StackPanel>
             </Grid>
-
-            <Grid Grid.Row="0" Grid.Column="1">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition></ColumnDefinition>
-                    <ColumnDefinition></ColumnDefinition>
-                </Grid.ColumnDefinitions>
-            </Grid>
+            <DockPanel Grid.Row="0" Grid.Column="1">
+                <Label DockPanel.Dock="Top" Content="Dialogue List"/>
+                <ListView DockPanel.Dock="Top" ItemsSource="{Binding Source = {StaticResource CharacterWindowViewModel}, Path=SelectedCharacter.CharacterDialogues}"
+                          SelectedItem="{Binding Source={StaticResource CharacterWindowViewModel}, Path=SelectedDialogue}"/>
+            </DockPanel>
 
             <Grid Column="0" Grid.Row="1">
                 <Grid.ColumnDefinitions>
@@ -75,7 +80,8 @@
                     <RowDefinition Height="25*"></RowDefinition>
                 </Grid.RowDefinitions>
             </Grid>
-            <TextBox Grid.Column="0" Grid.Row="2" />
+            <TextBox Grid.Column="0" Grid.Row="2" Text="{Binding Source={StaticResource CharacterWindowViewModel}, Path=SelectedCharacter.Description}"
+                     TextWrapping="Wrap" AcceptsReturn="True" VerticalScrollBarVisibility="Visible"/>
             <Button  Grid.Column="1"  Grid.Row="2" Content="Save Character" Command="{Binding Source={StaticResource CharacterWindowViewModel}, Path=CharacterWindowButtonClick}" CommandParameter="Save"></Button>
         </Grid>
     </Grid>

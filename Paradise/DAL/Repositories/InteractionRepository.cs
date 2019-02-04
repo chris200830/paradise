@@ -8,7 +8,7 @@ using DTO.Entities;
 
 namespace DAL.Repositories
 {
-    public class InteractionRepository : IInteractionRepository
+    internal class InteractionRepository : IInteractionRepository
     {
         private readonly WpfAppContext _context;
         private bool _disposed;
@@ -16,16 +16,6 @@ namespace DAL.Repositories
         public InteractionRepository(WpfAppContext context)
         {
             _context = context;
-        }
-
-        public void DeleteInteraction(int interactionId)
-        {
-            var interaction = _context.Interactions.Find(interactionId);
-
-            if (interaction == null)
-                return;
-
-            _context.Interactions.Remove(interaction);
         }
 
         public IEnumerable<Interaction> FindAllInteractions()
@@ -43,14 +33,24 @@ namespace DAL.Repositories
             _context.Interactions.Add(interaction);
         }
 
-        public void Save()
+        public void DeleteInteraction(int interactionId)
         {
-            _context.SaveChanges();
+            var interaction = _context.Interactions.Find(interactionId);
+
+            if (interaction == null)
+                return;
+
+            _context.Interactions.Remove(interaction);
         }
 
         public void UpdateInteraction(Interaction interaction)
         {
             _context.Entry(interaction).State = EntityState.Modified;
+        }
+
+        public void Save()
+        {
+            _context.SaveChanges();
         }
 
         protected virtual void Dispose(bool disposing)
